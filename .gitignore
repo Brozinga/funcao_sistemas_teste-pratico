@@ -1,0 +1,57 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.userprefs
+
+# Build output
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+[Ll]og/
+[Ll]ogs/
+
+# NuGet
+[Pp]ackages/
+!**/[Pp]ackages/build/
+*.nupkg
+*.snupkg
+.nuget/
+
+# ASP.NET / IIS Express
+.vs/config/
+*.pubxml
+*.pubxml.user
+PublishProfiles/
+App_Data/*.ldf
+
+# Banco de dados local (logs de transação)
+*.ldf
+# Descomente a linha abaixo se não quiser versionar o banco (os scripts em SQLs/ recriam a estrutura)
+# *.mdf
+
+# Testes e cobertura
+TestResults/
+*.coverage
+*.coveragexml
+
+# Ferramentas
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+.idea/
+.vscode/
+*.log
+*.tmp
+*.bak
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
