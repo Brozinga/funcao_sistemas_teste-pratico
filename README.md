@@ -27,6 +27,8 @@ Sou usuário Linux, então fiz o desenvolvimento em uma **máquina virtual**. A 
 
 Além do que foi pedido, fiz uma releitura do projeto em **.NET 8**, na pasta `net-core-8`. Atualizei os pacotes e a arquitetura, mantendo as mesmas funcionalidades e o mesmo banco de dados. Essa parte foi feita **com auxílio de automação**.
 
+> **Observação:** Optei pelo .NET 8 por ser compatível com o Visual Studio 2022, solicitado no teste. Dessa forma, basta o instalador do Visual Studio 2022, sem precisar instalar nenhum SDK separadamente.
+
 Resumo das mudanças:
 - ASP.NET Core MVC no lugar do MVC 5.
 - Bootstrap 5 e JavaScript puro no lugar de Bootstrap 3 e jQuery.
