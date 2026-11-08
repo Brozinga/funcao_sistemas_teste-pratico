@@ -1,5 +1,4 @@
-﻿
-$(document).ready(function () {
+﻿$(document).ready(function () {
 
     if (document.getElementById("gridClientes"))
         $('#gridClientes').jtable({
@@ -14,11 +13,22 @@ $(document).ready(function () {
             fields: {
                 Nome: {
                     title: 'Nome',
-                    width: '50%'
+                    width: '40%'
+                },
+                CPF: {
+                    title: 'CPF',
+                    width: '15%',
+                    sorting: false,
+                    display: function (data) {
+                        var cpf = data.record.CPF;
+                        if (!cpf)
+                            return '';
+                        return cpf.substr(0, 3) + '.' + cpf.substr(3, 3) + '.' + cpf.substr(6, 3) + '-' + cpf.substr(9, 2);
+                    }
                 },
                 Email: {
                     title: 'Email',
-                    width: '35%'
+                    width: '30%'
                 },
                 Alterar: {
                     title: '',
