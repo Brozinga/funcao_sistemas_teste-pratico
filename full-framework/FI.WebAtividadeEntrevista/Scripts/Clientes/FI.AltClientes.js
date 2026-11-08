@@ -11,7 +11,7 @@
         $('#formCadastro #Logradouro').val(obj.Logradouro);
         $('#formCadastro #Telefone').val(obj.Telefone);
 
-        CarregarBeneficiarios(obj.Beneficiarios);
+        CarregarBeneficiarios(obj.Beneficiarios || []);
     }
 
     $('#formCadastro').validate({
@@ -25,7 +25,7 @@
                 contentType: "application/json; charset=utf-8",
                 data: JSON.stringify({
                     "Id": obj.Id,
-                    "NOME": $(form).find("#Nome").val(),
+                    "Nome": $(form).find("#Nome").val(),
                     "CPF": $(form).find("#CPF").val(),
                     "CEP": $(form).find("#CEP").val(),
                     "Email": $(form).find("#Email").val(),
@@ -62,7 +62,7 @@ function ModalDialog(titulo, texto) {
         '        <div class="modal-dialog">                                                                                 ' +
         '            <div class="modal-content">                                                                            ' +
         '                <div class="modal-header">                                                                         ' +
-        '                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>         ' +
+        '                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>         ' +
         '                    <h4 class="modal-title">' + titulo + '</h4>                                                    ' +
         '                </div>                                                                                             ' +
         '                <div class="modal-body">                                                                           ' +

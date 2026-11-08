@@ -80,6 +80,9 @@
 
     <div class="row">
         <div class="col-lg-6">
+            <button type="button" id="btnBeneficiarios" class="btn btn-sm btn-primary">Beneficiários</button>
+        </div>
+        <div class="col-lg-6">
             <div class="pull-right">
                 <button type="submit" class="btn btn-sm btn-success">Salvar</button>
                 @Html.ActionLink("Voltar", "Index", "Cliente", new { }, new { @class = "btn btn-sm btn-danger" })
@@ -87,3 +90,50 @@
         </div>
     </div>
 </form>
+
+@* Pop-up de beneficiários (Bootstrap 3). Quem controla é o FI.Beneficiarios.js *@
+<div class="modal fade" id="modalBeneficiarios" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Beneficiários</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formBeneficiario" method="post">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="BenefCPF">CPF:</label>
+                                <input type="text" class="form-control" id="BenefCPF" name="BenefCPF" placeholder="Ex.: 010.011.111-00" maxlength="14">
+                            </div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="form-group">
+                                <label for="BenefNome">Nome:</label>
+                                <input type="text" class="form-control" id="BenefNome" name="BenefNome" placeholder="Ex.: Maria" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>&nbsp;</label>
+                                <button type="submit" id="btnIncluirBenef" class="btn btn-sm btn-success btn-block">Incluir</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <table id="gridBeneficiarios" class="table">
+                    <thead>
+                        <tr>
+                            <th>CPF</th>
+                            <th>Nome</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
