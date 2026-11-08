@@ -29,6 +29,14 @@ namespace FI.WebAtividadeEntrevista
                       "~/Scripts/jtable/jquery.jtable.min.js",
                       "~/Scripts/jtable/localization/jquery.jtable.pt-BR.js"));
 
+            // CPF e beneficiários: jQuery Validation + additional-methods (cpfBR) + jQuery Mask + nossos scripts
+            bundles.Add(new ScriptBundle("~/bundles/cpf").Include(
+                      "~/Scripts/jquery.validate.js",
+                      "~/Scripts/additional-methods.js",
+                      "~/Scripts/jquery.mask.min.js",
+                      "~/Scripts/Clientes/FI.Validacoes.js",
+                      "~/Scripts/Clientes/FI.Beneficiarios.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/clientes").Include(
                       "~/Scripts/Clientes/FI.Clientes.js"));
 

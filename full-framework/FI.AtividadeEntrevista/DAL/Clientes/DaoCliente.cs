@@ -57,7 +57,7 @@ namespace FI.AtividadeEntrevista.DAL
         /// </summary>
         /// <param name="CPF">CPF somente com números</param>
         /// <param name="Id">Id do cliente que está sendo alterado (na inclusão use 0)</param>
-        internal bool VerificarExistencia(string CPF, long Id)
+        internal bool VerificarExistencia(string CPF, long Id = 0)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
