@@ -27,6 +27,7 @@ namespace FI.AtividadeEntrevista.DAL
             parametros.Add(new System.Data.SqlClient.SqlParameter("Logradouro", cliente.Logradouro));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Email", cliente.Email));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Telefone", cliente.Telefone));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", cliente.CPF));
 
             DataSet ds = base.Consultar("FI_SP_IncClienteV2", parametros);
             long ret = 0;
@@ -51,11 +52,17 @@ namespace FI.AtividadeEntrevista.DAL
             return cli.FirstOrDefault();
         }
 
-        internal bool VerificarExistencia(string CPF)
+        /// <summary>
+        /// Verifica se o CPF já existe em outro cliente
+        /// </summary>
+        /// <param name="CPF">CPF somente com números</param>
+        /// <param name="Id">Id do cliente que está sendo alterado (na inclusão use 0)</param>
+        internal bool VerificarExistencia(string CPF, long Id = 0)
         {
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", CPF));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("Id", Id));
 
             DataSet ds = base.Consultar("FI_SP_VerificaCliente", parametros);
 
@@ -116,6 +123,7 @@ namespace FI.AtividadeEntrevista.DAL
             parametros.Add(new System.Data.SqlClient.SqlParameter("Logradouro", cliente.Logradouro));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Email", cliente.Email));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Telefone", cliente.Telefone));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", cliente.CPF));
             parametros.Add(new System.Data.SqlClient.SqlParameter("ID", cliente.Id));
 
             base.Executar("FI_SP_AltCliente", parametros);
@@ -146,6 +154,7 @@ namespace FI.AtividadeEntrevista.DAL
                     cli.Id = row.Field<long>("Id");
                     cli.CEP = row.Field<string>("CEP");
                     cli.Cidade = row.Field<string>("Cidade");
+                    cli.CPF = row.Field<string>("CPF");
                     cli.Email = row.Field<string>("Email");
                     cli.Estado = row.Field<string>("Estado");
                     cli.Logradouro = row.Field<string>("Logradouro");

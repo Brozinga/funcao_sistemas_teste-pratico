@@ -3,7 +3,6 @@ using WebAtividadeEntrevista.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using FI.AtividadeEntrevista.DML;
 
@@ -26,7 +25,7 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Incluir(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-            
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -38,11 +37,18 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
-                
+                string erro = ValidarDados(model);
+                if (erro != null)
+                {
+                    Response.StatusCode = 400;
+                    return Json(erro);
+                }
+
                 model.Id = bo.Incluir(new Cliente()
-                {                    
+                {
                     CEP = model.CEP,
                     Cidade = model.Cidade,
+                    CPF = CpfValidador.SomenteNumeros(model.CPF),
                     Email = model.Email,
                     Estado = model.Estado,
                     Logradouro = model.Logradouro,
@@ -52,7 +58,6 @@ namespace WebAtividadeEntrevista.Controllers
                     Telefone = model.Telefone
                 });
 
-           
                 return Json("Cadastro efetuado com sucesso");
             }
         }
@@ -61,7 +66,7 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Alterar(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-       
+
             if (!this.ModelState.IsValid)
             {
                 List<string> erros = (from item in ModelState.Values
@@ -73,11 +78,19 @@ namespace WebAtividadeEntrevista.Controllers
             }
             else
             {
+                string erro = ValidarDados(model);
+                if (erro != null)
+                {
+                    Response.StatusCode = 400;
+                    return Json(erro);
+                }
+
                 bo.Alterar(new Cliente()
                 {
                     Id = model.Id,
                     CEP = model.CEP,
                     Cidade = model.Cidade,
+                    CPF = CpfValidador.SomenteNumeros(model.CPF),
                     Email = model.Email,
                     Estado = model.Estado,
                     Logradouro = model.Logradouro,
@@ -86,7 +99,7 @@ namespace WebAtividadeEntrevista.Controllers
                     Sobrenome = model.Sobrenome,
                     Telefone = model.Telefone
                 });
-                               
+
                 return Json("Cadastro alterado com sucesso");
             }
         }
@@ -105,6 +118,7 @@ namespace WebAtividadeEntrevista.Controllers
                     Id = cliente.Id,
                     CEP = cliente.CEP,
                     Cidade = cliente.Cidade,
+                    CPF = CpfValidador.Formatar(cliente.CPF),
                     Email = cliente.Email,
                     Estado = cliente.Estado,
                     Logradouro = cliente.Logradouro,
@@ -113,8 +127,6 @@ namespace WebAtividadeEntrevista.Controllers
                     Sobrenome = cliente.Sobrenome,
                     Telefone = cliente.Telefone
                 };
-
-            
             }
 
             return View(model);
@@ -128,7 +140,7 @@ namespace WebAtividadeEntrevista.Controllers
                 int qtd = 0;
                 string campo = string.Empty;
                 string crescente = string.Empty;
-                string[] array = jtSorting.Split(' ');
+                string[] array = (jtSorting ?? string.Empty).Split(' ');
 
                 if (array.Length > 0)
                     campo = array[0];
@@ -145,6 +157,20 @@ namespace WebAtividadeEntrevista.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
+        }
+
+        /// <summary>
+        /// Valida o CPF do cliente (dígitos verificadores) e se ele já existe em OUTRO cliente.
+        /// </summary>
+        private string ValidarDados(ClienteModel model)
+        {
+            if (!CpfValidador.EhValido(model.CPF))
+                return "CPF inválido";
+
+            if (new BoCliente().VerificarExistencia(CpfValidador.SomenteNumeros(model.CPF), model.Id))
+                return "CPF já cadastrado";
+
+            return null;
         }
     }
 }

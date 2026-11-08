@@ -1,4 +1,5 @@
-﻿
+﻿@model WebAtividadeEntrevista.Models.ClienteModel
+
 @{
     ViewBag.Title = "Cadastrar Cliente";
 }
@@ -6,6 +7,7 @@
     <script>
         var urlPost = '@Url.Action("Incluir", "Cliente", new { area = "" })';
     </script>
+    @Scripts.Render("~/bundles/cpf")
     @Scripts.Render("~/bundles/clientes")
 }
 <h2>@Html.Raw(ViewBag.Title)</h2>
