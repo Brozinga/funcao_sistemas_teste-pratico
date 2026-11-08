@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace FI.WebAtividadeEntrevista
 {
@@ -29,7 +28,8 @@ namespace FI.WebAtividadeEntrevista
                       "~/Scripts/jtable/jquery.jtable.min.js",
                       "~/Scripts/jtable/localization/jquery.jtable.pt-BR.js"));
 
-            // CPF e beneficiários: jQuery Validation + additional-methods (cpfBR) + jQuery Mask + nossos scripts
+            // CPF e beneficiários: jQuery Validation + additional-methods (cpfBR) + jQuery Mask + FI.Validacoes.js + FI.Beneficiarios.js
+            // A ORDEM IMPORTA: o additional-methods precisa vir depois do jquery.validate, e o FI.Validacoes.js depois dos dois.
             bundles.Add(new ScriptBundle("~/bundles/cpf").Include(
                       "~/Scripts/jquery.validate.js",
                       "~/Scripts/additional-methods.js",

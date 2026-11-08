@@ -58,6 +58,8 @@ namespace WebAtividadeEntrevista.Controllers
                     Telefone = model.Telefone
                 });
 
+                new BoBeneficiario().Gravar(model.Id, ConverterBeneficiarios(model));
+
                 return Json("Cadastro efetuado com sucesso");
             }
         }
@@ -100,6 +102,8 @@ namespace WebAtividadeEntrevista.Controllers
                     Telefone = model.Telefone
                 });
 
+                new BoBeneficiario().Gravar(model.Id, ConverterBeneficiarios(model));
+
                 return Json("Cadastro alterado com sucesso");
             }
         }
@@ -125,8 +129,19 @@ namespace WebAtividadeEntrevista.Controllers
                     Nacionalidade = cliente.Nacionalidade,
                     Nome = cliente.Nome,
                     Sobrenome = cliente.Sobrenome,
-                    Telefone = cliente.Telefone
+                    Telefone = cliente.Telefone,
+                    Beneficiarios = new List<BeneficiarioModel>()
                 };
+
+                foreach (Beneficiario ben in new BoBeneficiario().Listar(cliente.Id))
+                {
+                    model.Beneficiarios.Add(new BeneficiarioModel()
+                    {
+                        Id = ben.Id,
+                        CPF = CpfValidador.Formatar(ben.CPF),
+                        Nome = ben.Nome
+                    });
+                }
             }
 
             return View(model);
@@ -160,7 +175,7 @@ namespace WebAtividadeEntrevista.Controllers
         }
 
         /// <summary>
-        /// Valida o CPF do cliente (dígitos verificadores) e se ele já existe em OUTRO cliente.
+        /// Valida o CPF do cliente, CPF duplicado e os beneficiários.
         /// </summary>
         private string ValidarDados(ClienteModel model)
         {
@@ -170,7 +185,49 @@ namespace WebAtividadeEntrevista.Controllers
             if (new BoCliente().VerificarExistencia(CpfValidador.SomenteNumeros(model.CPF), model.Id))
                 return "CPF já cadastrado";
 
+            if (model.Beneficiarios != null)
+            {
+                foreach (BeneficiarioModel ben in model.Beneficiarios)
+                {
+                    if (!CpfValidador.EhValido(ben.CPF))
+                        return "CPF do beneficiário inválido: " + ben.CPF;
+
+                    if (ben.Nome.Trim().Length < 3)
+                        return "O nome do beneficiário deve ter no mínimo 3 letras";
+                }
+
+                bool repetido = model.Beneficiarios
+                    .GroupBy(b => CpfValidador.SomenteNumeros(b.CPF))
+                    .Any(g => g.Count() > 1);
+
+                if (repetido)
+                    return "Não é permitido mais de um beneficiário com o mesmo CPF";
+            }
+
             return null;
+        }
+
+        /// <summary>
+        /// Converte os beneficiários da tela
+        /// </summary>
+        private List<Beneficiario> ConverterBeneficiarios(ClienteModel model)
+        {
+            List<Beneficiario> lista = new List<Beneficiario>();
+
+            if (model.Beneficiarios != null)
+            {
+                foreach (BeneficiarioModel ben in model.Beneficiarios)
+                {
+                    lista.Add(new Beneficiario()
+                    {
+                        Id = ben.Id,
+                        CPF = CpfValidador.SomenteNumeros(ben.CPF),
+                        Nome = ben.Nome.Trim()
+                    });
+                }
+            }
+
+            return lista;
         }
     }
 }
