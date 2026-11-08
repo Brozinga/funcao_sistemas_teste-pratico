@@ -10,7 +10,7 @@ Neste repositório entrego o que foi solicitado no teste, no projeto original em
 - Valido o CPF pelo cálculo dos dígitos verificadores.
 - Não permito CPF duplicado: a validação é feita no sistema e também no banco, com um índice único na coluna `CPF` da tabela `CLIENTES`.
 
-### 2. Botão "Beneficiários"
+### 2. Beneficiários
 - Incluí o botão **Beneficiários** na tela de cliente, no mesmo padrão visual dos demais botões.
 - O botão abre um pop-up com os campos **CPF** (com máscara e validação do dígito verificador) e **Nome**.
 - No pop-up há um grid com os beneficiários já incluídos, onde é possível **alterar** e **excluir**.
