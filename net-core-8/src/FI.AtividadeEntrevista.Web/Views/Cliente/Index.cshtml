@@ -1,0 +1,16 @@
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="mb-0">Clientes</h2>
+    <a class="btn btn-sm btn-primary" asp-action="Incluir">Novo Cliente</a>
+</div>
+
+<div id="listaClientes"
+     data-url-lista="@Url.Action("ClienteList", "Cliente")"
+     data-url-alteracao="@Url.Action("Alterar", "Cliente")"></div>
+
+@section Scripts {
+    <script type="module" src="~/js/cliente-lista.js" asp-append-version="true"></script>
+}

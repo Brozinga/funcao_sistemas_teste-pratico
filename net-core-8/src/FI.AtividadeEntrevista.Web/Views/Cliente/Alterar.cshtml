@@ -1,0 +1,13 @@
+@model ClienteModel
+@{
+    ViewData["Title"] = "Alterar Cliente";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<partial name="_Formulario" model="Model" view-data='new ViewDataDictionary(ViewData) { { "UrlPost", Url.Action("Alterar", "Cliente") }, { "UrlRetorno", Url.Action("Index", "Cliente") } }' />
+
+@section Scripts {
+    <script src="~/lib/imask/imask.min.js"></script>
+    <script type="module" src="~/js/cliente-form.js" asp-append-version="true"></script>
+}
