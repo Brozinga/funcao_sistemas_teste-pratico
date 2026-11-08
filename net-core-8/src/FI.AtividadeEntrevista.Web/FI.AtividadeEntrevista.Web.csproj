@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <ItemGroup>
+    <ProjectReference Include="..\FI.AtividadeEntrevista.Application\FI.AtividadeEntrevista.Application.csproj" />
+    <ProjectReference Include="..\FI.AtividadeEntrevista.Infrastructure\FI.AtividadeEntrevista.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
