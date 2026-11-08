@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace WebAtividadeEntrevista.Models
 {
@@ -73,6 +70,11 @@ namespace WebAtividadeEntrevista.Models
         [Required]
         [RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "Digite o CPF no formato 999.999.999-99")]
         public string CPF { get; set; }
+
+        /// <summary>
+        /// Beneficiários do cliente (gravados junto com o cliente no botão Salvar)
+        /// </summary>
+        public List<BeneficiarioModel> Beneficiarios { get; set; }
 
     }
 }
