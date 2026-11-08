@@ -1,0 +1,17 @@
+body {
+    padding-top: 70px;
+}
+
+.conteudo {
+    min-height: 70vh;
+    padding-bottom: 20px;
+}
+
+th[data-campo] {
+    cursor: pointer;
+    user-select: none;
+}
+
+.mensagem {
+    white-space: pre-line;
+}
