@@ -29,10 +29,9 @@ build/
 *.pubxml
 *.pubxml.user
 PublishProfiles/
-App_Data/*.ldf
 
 # Banco de dados local (logs de transação)
-*.ldf
+#*.ldf
 # Descomente a linha abaixo se não quiser versionar o banco (os scripts em SQLs/ recriam a estrutura)
 # *.mdf
 
